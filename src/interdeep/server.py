@@ -215,13 +215,22 @@ async def _handle_research_status(arguments: dict) -> list[TextContent]:
 
     pw_available = playwright_ext.is_available()
 
+    # Read version from plugin.json rather than hardcoding
+    version = "unknown"
+    plugin_json = _os.path.join(_os.path.dirname(__file__), "..", "..", ".claude-plugin", "plugin.json")
+    try:
+        with open(_os.path.normpath(plugin_json)) as f:
+            version = json.load(f).get("version", version)
+    except (OSError, json.JSONDecodeError):
+        pass
+
     return _ok({
         "extraction": {
             "trafilatura": trafilatura_available,
             "playwright": pw_available,
         },
         "tools": ["extract_content", "extract_batch", "compile_report", "research_status"],
-        "version": "0.1.0",
+        "version": version,
     })
 
 
