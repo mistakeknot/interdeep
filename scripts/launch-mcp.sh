@@ -13,4 +13,7 @@ if ! uv run --directory "$PROJECT_ROOT" python -c "import trafilatura" 2>/dev/nu
     uv sync --directory "$PROJECT_ROOT" 2>&1 >&2
 fi
 
+# Playwright browsers live inside the venv's package dir
+export PLAYWRIGHT_BROWSERS_PATH=0
+
 exec uv run --directory "$PROJECT_ROOT" interdeep-mcp "$@"

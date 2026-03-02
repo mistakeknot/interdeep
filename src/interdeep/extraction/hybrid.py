@@ -29,7 +29,7 @@ def extract_hybrid(url: str = "", html: str = "", timeout: int = 10) -> Extracti
         logger.info("trafilatura insufficient (%d chars), falling back to Playwright: %s",
                      result.content_length, url)
         try:
-            pw_result = asyncio.run(playwright_ext.extract_with_playwright(url))
+            pw_result = asyncio.run(playwright_ext.extract_with_playwright(url, timeout=timeout * 1000))
             if pw_result.content_length > result.content_length:
                 return pw_result
         except Exception as e:
@@ -55,7 +55,7 @@ async def extract_hybrid_async(url: str = "", html: str = "",
 
     if url and playwright_ext.is_available():
         logger.info("trafilatura insufficient, falling back to Playwright: %s", url)
-        pw_result = await playwright_ext.extract_with_playwright(url)
+        pw_result = await playwright_ext.extract_with_playwright(url, timeout=timeout * 1000)
         if pw_result.content_length > result.content_length:
             return pw_result
 
