@@ -1,5 +1,15 @@
 """interdeep MCP server — content extraction and research orchestration tools."""
 
+# Patch certifi to prefer system CA bundle when available.
+# certifi ships only Mozilla's root store, which is missing some intermediates
+# (e.g. SSL.com Transit CAs used by Cloudflare). trafilatura hardcodes
+# certifi.where() in its PoolManager, so env vars don't help.
+import os as _os
+_sys_ca = "/etc/ssl/certs/ca-certificates.crt"
+if _os.path.isfile(_sys_ca):
+    import certifi
+    certifi.where = lambda: _sys_ca
+
 import asyncio
 import json
 import logging

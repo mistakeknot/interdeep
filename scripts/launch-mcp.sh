@@ -16,4 +16,11 @@ fi
 # Playwright browsers live inside the venv's package dir
 export PLAYWRIGHT_BROWSERS_PATH=0
 
+# Use system CA bundle — certifi's Mozilla-only bundle is missing some
+# intermediates (e.g. SSL.com Transit CAs used by Cloudflare chains)
+if [ -f /etc/ssl/certs/ca-certificates.crt ]; then
+    export SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
+    export REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
+fi
+
 exec uv run --directory "$PROJECT_ROOT" interdeep-mcp "$@"
