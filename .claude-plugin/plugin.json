@@ -1,0 +1,31 @@
+{
+  "name": "interdeep",
+  "version": "0.1.0",
+  "description": "Deep research plugin — content extraction and research orchestration via MCP tools.",
+  "author": {
+    "name": "mistakeknot"
+  },
+  "license": "MIT",
+  "keywords": [
+    "research",
+    "extraction",
+    "deep-research",
+    "trafilatura"
+  ],
+  "skills": [
+    "./skills/deep-research"
+  ],
+  "commands": [
+    "./commands/research.md"
+  ],
+  "agents": [
+    "./agents/research-planner.md",
+    "./agents/source-evaluator.md",
+    "./agents/report-compiler.md"
+  ],
+  "mcpServers": {
+    "interdeep": {
+      "command": "${CLAUDE_PLUGIN_ROOT}/scripts/launch-mcp.sh"
+    }
+  }
+}
