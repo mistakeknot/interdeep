@@ -21,3 +21,8 @@ interdeep-mcp = "interdeep.server:cli_main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/interdeep"]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.2",
+]
