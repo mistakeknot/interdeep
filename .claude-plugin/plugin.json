@@ -1,6 +1,6 @@
 {
   "name": "interdeep",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Deep research plugin — content extraction and research orchestration via MCP tools.",
   "author": {
     "name": "mistakeknot"
