@@ -58,3 +58,42 @@ def test_extraction_result_content_length():
     """ExtractionResult should auto-compute content_length."""
     result = ExtractionResult(url="https://example.com", content="hello world")
     assert result.content_length == 11
+
+
+def test_hybrid_extract_uses_trafilatura_first():
+    """Hybrid should try trafilatura before playwright."""
+    from interdeep.extraction.hybrid import extract_hybrid
+
+    html = "<html><body><article><p>Simple content here that is long enough to pass the minimum content length threshold for hybrid extraction.</p><p>Adding more content to ensure we exceed the 200 character minimum requirement for the extraction to be considered successful.</p></article></body></html>"
+    result = extract_hybrid(html=html, url="https://example.com")
+    assert result.method == "trafilatura"
+    assert result.content_length > 0
+
+
+def test_hybrid_extract_no_input():
+    """Hybrid with no url or html should return failed."""
+    from interdeep.extraction.hybrid import extract_hybrid
+
+    result = extract_hybrid()
+    assert result.method == "failed"
+
+
+def test_extract_batch_async():
+    """Batch extraction should return results for each URL."""
+    import asyncio
+    from unittest.mock import patch as mock_patch
+    from interdeep.extraction.hybrid import extract_batch_async
+
+    async def mock_extract(url="", html="", timeout=10):
+        return ExtractionResult(url=url, content="x" * 300, method="trafilatura")
+
+    with mock_patch("interdeep.extraction.hybrid.extract_hybrid_async", side_effect=mock_extract):
+        results = asyncio.run(extract_batch_async(["https://a.com", "https://b.com"]))
+        assert len(results) == 2
+        assert all(r.method == "trafilatura" for r in results)
+
+
+def test_playwright_is_available():
+    """playwright_ext.is_available() should return a boolean."""
+    from interdeep.extraction.playwright_ext import is_available
+    assert isinstance(is_available(), bool)
