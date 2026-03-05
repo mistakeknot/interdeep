@@ -74,13 +74,18 @@ For each URL returned in Phase 2:
 
 ### Phase 5: Persist
 
-1. If interknow is available, store the report for future retrieval:
+1. **Save to filesystem** — always write the report to a `research/` directory in the current working directory:
+   - Create the `research/` directory if it doesn't exist.
+   - Filename format: `research/YYYY-MM-DD-<slug>.md` where `<slug>` is a short kebab-case summary of the query (max 60 chars).
+   - If a file with the same name already exists, append `-2`, `-3`, etc.
+   - The saved file should include the full report with all sections from the Output Contract.
+2. If interknow is available, also store the report for future retrieval:
    ```
    mcp tool: interknow_qmd__search
    ```
    (Check for duplicates before storing.)
-2. Present the final report to the user.
-3. Call `research_status` to confirm extraction capabilities used:
+3. Present the final report to the user, noting the saved file path.
+4. Call `research_status` to confirm extraction capabilities used:
    ```
    mcp tool: research_status
    args: {}
