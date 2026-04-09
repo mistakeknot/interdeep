@@ -43,6 +43,3 @@ uv run python -c "from interdeep.extraction.hybrid import extract_hybrid; print(
 - GPT-Researcher is inspire + port-partially, not a dependency
 - No LangChain dependency — direct MCP protocol
 
-## Plugin Publishing
-
-Use `/interpub:release <version>` or `scripts/bump-version.sh <version>`.
