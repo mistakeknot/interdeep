@@ -1,7 +1,7 @@
 {
   "name": "interdeep",
   "version": "0.1.6",
-  "description": "Deep research plugin — content extraction and research orchestration via MCP tools.",
+  "description": "Deep research plugin \u2014 content extraction and research orchestration via MCP tools.",
   "author": {
     "name": "mistakeknot"
   },
@@ -27,5 +27,9 @@
     "interdeep": {
       "command": "${CLAUDE_PLUGIN_ROOT}/scripts/launch-mcp.sh"
     }
-  }
+  },
+  "peerDependencies": [
+    "interknow",
+    "interlens"
+  ]
 }
