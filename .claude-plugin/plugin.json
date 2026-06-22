@@ -27,9 +27,5 @@
     "interdeep": {
       "command": "${CLAUDE_PLUGIN_ROOT}/scripts/launch-mcp.sh"
     }
-  },
-  "peerDependencies": [
-    "interknow",
-    "interlens"
-  ]
+  }
 }

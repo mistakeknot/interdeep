@@ -1,0 +1,10 @@
+{
+  "name": "interdeep",
+  "companions": {
+    "recommended": [
+      "interknow",
+      "interlens"
+    ],
+    "optional": []
+  }
+}
