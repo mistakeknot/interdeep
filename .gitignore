@@ -12,3 +12,6 @@ build/
 uv.lock
 *.db-shm
 *.db-wal
+
+# Machine-local interspect telemetry (SQLite); git-autosync does 'git add -A'
+.clavain/interspect/
